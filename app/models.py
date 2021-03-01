@@ -6,8 +6,7 @@ from flask_login import UserMixin
 class Track(db.Model):
     """Track model."""
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    difficulty = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String(100), nullable=False, unique=True)
     description = db.Column(db.String(1000), nullable=False)
     image = db.Column(db.Sring(250))
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -24,8 +23,10 @@ class Track(db.Model):
 class Location(db.Model):
     """Location model."""
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80))
+    name = db.Column(db.String(80), unique=True)
     address = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
+    image = db.Column(db.Sring(250))
 
     def __str__(self):
         return f'<Location Name: {self.name}>'
@@ -38,6 +39,7 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), nullable=False)
     rating = db.Column(db.String(10), nullable=False)
+    difficulty = db.Column(db.String(20), nullable=False)
     description = db.Column(db.String(1000), nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     author = db.relationship('User', back_populates='reviews')

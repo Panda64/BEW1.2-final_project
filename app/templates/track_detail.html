@@ -24,7 +24,7 @@
 {% for review in track.reviews %}
     <li>
         <p>
-            <strong>{{ review.author.username }}</strong> - {{ review.title }}
+            <strong><a href="/profile/{{ review.author.id }}">{{ review.author.name }}</a></strong> - {{ review.title }}
         </p>
 
         <p>

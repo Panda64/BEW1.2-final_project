@@ -28,6 +28,8 @@ class Location(db.Model):
     address = db.Column(db.String(200), nullable=False)
     description = db.Column(db.String(1000), nullable=False)
     image = db.Column(db.Sring(250))
+    author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    author = db.relationship('User', back_populates='added_locations')
     tracks = db.relationship('Track', back_populates='location')
 
     def __str__(self):
@@ -62,7 +64,8 @@ class User(UserMixin, db.Model):
     riding_experience = db.Column(db.String(20), nullable=False)
     bike = db.Column(db.String(50), nullable=False)
     reviews = db.relationship('Review', back_populates='author')
-    added_tracks = db.relationship('Track', back_populates='author') 
+    added_tracks = db.relationship('Track', back_populates='author')
+    added_locations = db.relationship('Location', back_populates='author')  
 
     def __repr__(self):
         return f'<User: {self.username}>'

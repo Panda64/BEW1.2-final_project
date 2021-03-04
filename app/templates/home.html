@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Tracks</h2>
+
+<ul>
+{% for track in all_tracks %}
+    <li>
+        <img src="{{ track.image }}" alt="{{ track.name }}">
+        <a href="/track/{{ track.id }}">{{ track.name }}</a> by {{ track.author.username }}
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

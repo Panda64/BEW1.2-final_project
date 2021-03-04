@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{ track.name }}</h1>
+
+<img src="{{ track.image }}" alt="{{ track.name }}">
+
+<p>
+    <strong>Location</strong>: <a href="/location/{{ location.id }}">{{ location.name }}</a> - {{ location.address }}
+</p>
+
+<p>
+    <strong>Description</strong>: {{ track.description }}
+</p>
+
+<p>
+    <strong>Added By</strong>: {{ track.author.username }}
+</p>
+
+
+<h3>Reviews</h3>
+<ul>
+{% for review in track.reviews %}
+    <li>
+        <p>
+            <strong>{{ review.author.username }}</strong> - {{ review.title }}
+        </p>
+
+        <p>
+            <strong>Riding Experience</strong>: {{ review.author.riding_experience }}
+        </p>
+
+        <p>
+            <strong>Rating</strong>: {{ review.rating }}
+        </p>
+
+        <p>
+            <strong>Difficulty</strong>: {{ review.difficulty }}
+        </p>
+
+        <p>
+            {{ review.description }}
+        </p>
+    </li>
+{% endfor %}
+
+
+{% if current_user.is_authenticated %}
+    <form method="POST" action="{{ url_for('main.track_detail', track_id=track.id) }}">
+        {{ form.csrf_token }}
+        <fieldset>
+            <legend>Review this track</legend>
+
+            {{ form.title.label }}
+            {{ form.title }}
+            <ul>
+                {% for error in form.title.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            
+            {{ form.rating.label }}
+            {{ form.rating }}
+            <ul>
+                {% for error in form.rating.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            
+            {{ form.difficulty.label }}
+            {{ form.difficulty }}
+            <ul>
+                {% for error in form.difficulty.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            
+            {{ form.description.label }}
+            {{ form.description }}
+            <ul>
+                {% for error in form.description.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
+                
+            {{ form.submit }}
+        </fieldset>
+    </form>
+{% else %}
+    <p>Sign in to add a review!</p>
+{% endif %}
+
+
+{% endblock %}

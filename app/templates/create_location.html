@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="POST" action="{{ url_for('main.create_location') }}">
+    {{ form.csrf_token }}
+    <fieldset>
+        <legend>Add a location</legend>
+
+        {{ form.name.label }}
+        {{ form.name }}
+        <ul>
+            {% for error in form.name.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        
+        {{ form.image_url.label }}
+        {{ form.image_url }}
+        <ul>
+            {% for error in form.image_url.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        
+        {{ form.address.label }}
+        {{ form.address }}
+        <ul>
+            {% for error in form.address.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        
+        {{ form.description.label }}
+        {{ form.description }}
+        <ul>
+            {% for error in form.description.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+            
+        {{ form.submit }}
+    </fieldset>
+</form>
+
+{% endblock %}

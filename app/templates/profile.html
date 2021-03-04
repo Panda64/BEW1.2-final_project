@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>
+Welcome to {{ user.username }}'s profile.
+</h3>
+
+
+<p>
+    <strong>Riding Experience</strong>: {{ user.riding_experience }}
+</p>
+
+<p>
+    <strong>Bike</strong>: {{ user.bike }}
+</p>
+
+
+{% if current_user.username == user.username %}
+    <form method="POST" action="{{ url_for('main.profile', user_id=user.id) }}">
+        {{ form.csrf_token }}
+        <fieldset>
+            <legend>Update your profile</legend>
+
+            {{ form.riding_experience.label }}
+            {{ form.riding_experience }}
+            <ul>
+                {% for error in form.riding_experience.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            
+            {{ form.bike.label }}
+            {{ form.bike }}
+            <ul>
+                {% for error in form.bike.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
+                
+            {{ form.submit }}
+        </fieldset>
+    </form>
+{% endif %}
+
+{% endblock %}

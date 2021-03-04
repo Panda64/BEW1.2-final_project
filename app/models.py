@@ -12,7 +12,8 @@ class Track(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     author = db.relationship('User', back_populates='added_tracks')
     location_id = db.Column(db.Integer, db.ForeignKey('location.id'), nullable=False)
-    location = db.relationship('Location', backref=backref("location", uselist=False))
+    location = db.relationship('Location', back_populates="tracks")
+    reviews = db.relationship('Review', back_populates='track')
     
     def __str__(self):
         return f'<Track: {self.name}>'
@@ -27,6 +28,7 @@ class Location(db.Model):
     address = db.Column(db.String(200), nullable=False)
     description = db.Column(db.String(1000), nullable=False)
     image = db.Column(db.Sring(250))
+    tracks = db.relationship('Track', back_populates='location')
 
     def __str__(self):
         return f'<Location Name: {self.name}>'
@@ -43,6 +45,8 @@ class Review(db.Model):
     description = db.Column(db.String(1000), nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     author = db.relationship('User', back_populates='reviews')
+    track_id = db.Column(db.Integer, db.ForeignKey('track.id'), nullable=False)
+    track = db.relationship('Track', back_populates='reviews')
 
     def __str__(self):
         return f'<Review Title: {self.title}>'

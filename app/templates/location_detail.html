@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{ location.name }}</h1>
+
+<img src="{{ location.image }}" alt="{{ location.name }}">
+
+<p>
+    <strong>Address</strong>: {{ location.address }}
+</p>
+
+<p>
+    <strong>Description</strong>: {{ location.description }}
+</p>
+
+<p>
+    <strong>Added By</strong>: {{ location.author.username }}
+</p>
+
+<h3>Tracks at this location</h3>
+<ul>
+{% for track in location.tracks %}
+    <li>
+        <img src="{{ track.image }}" alt="{{ track.name }}">
+        <a href="/track/{{ track.id }}">{{ track.name }}</a>
+    </li>
+{% endfor %}
+
+{% endblock %}

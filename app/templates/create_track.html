@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="POST" action="{{ url_for('main.create_track') }}">
+    {{ form.csrf_token }}
+    <fieldset>
+        <legend>Add a track</legend>
+
+        {{ form.name.label }}
+        {{ form.name }}
+        <ul>
+            {% for error in form.name.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        
+        {{ form.image_url.label }}
+        {{ form.image_url }}
+        <ul>
+            {% for error in form.image_url.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        
+        {{ form.location.label }}
+        {{ form.location }}
+        <ul>
+            {% for error in form.location.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        
+        {{ form.description.label }}
+        {{ form.description }}
+        <ul>
+            {% for error in form.description.errors %}
+                <li class="error">{{ error }}</li>
+            {% endfor %}
+        </ul>
+            
+        {{ form.submit }}
+    </fieldset>
+</form>
+
+{% endblock %}

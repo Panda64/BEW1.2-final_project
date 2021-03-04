@@ -41,7 +41,7 @@ def create_track():
 
         flash('New track was added successfully.')
         return redirect(url_for('main.track_detail', track_id=new_track.id))
-    return render_template('create_book.html', form=form)
+    return render_template('create_track.html', form=form)
 
 
 @main.route('/create_location', methods=['GET', 'POST'])
@@ -89,7 +89,7 @@ def track_detail(track_id):
     already_reviewed = False
     track = Track.query.get(track_id)
     form = ReviewForm()
-    
+    print(track.reviews)
     # if form was submitted and contained no errors
     if form.validate_on_submit():
         new_review = Review(
@@ -97,20 +97,24 @@ def track_detail(track_id):
             rating=form.rating.data,
             difficulty=form.difficulty.data,
             description=form.description.data,
-            author=current_user
+            author=current_user,
+            track=track
         )
 
         for track_review in track.reviews:
+            print(track.reviews)
+            print(track_review)
             if track_review.author == new_review.author:
+                print("test")
                 already_reviewed = True
         
         if already_reviewed == False:
             db.session.add(new_review)
             db.session.commit()
+            flash('Review was added successfully.')
         else:
             flash('You have already reviewed this track')
 
-        flash('Review was added successfully.')
         return redirect(url_for('main.track_detail', track_id=track_id))
 
     return render_template('track_detail.html', track=track, form=form)

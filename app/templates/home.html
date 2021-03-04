@@ -7,7 +7,7 @@
 <ul>
 {% for track in all_tracks %}
     <li>
-        <img src="{{ track.image }}" alt="{{ track.name }}">
+        <img src="{{ track.image_url }}" alt="{{ track.name }}" style="max-width: 25%;">
         <a href="/track/{{ track.id }}">{{ track.name }}</a> by {{ track.author.username }}
     </li>
 {% endfor %}

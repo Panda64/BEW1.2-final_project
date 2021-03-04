@@ -89,28 +89,26 @@ def track_detail(track_id):
     already_reviewed = False
     track = Track.query.get(track_id)
     form = ReviewForm()
-    print(track.reviews)
+
     # if form was submitted and contained no errors
     if form.validate_on_submit():
-        new_review = Review(
-            title=form.title.data,
-            rating=form.rating.data,
-            difficulty=form.difficulty.data,
-            description=form.description.data,
-            author=current_user,
-            track=track
-        )
-
         for track_review in track.reviews:
-            print(track.reviews)
-            print(track_review)
-            if track_review.author == new_review.author:
-                print("test")
+            if track_review.author == current_user:
                 already_reviewed = True
-        
+
         if already_reviewed == False:
+            new_review = Review(
+                title=form.title.data,
+                rating=form.rating.data,
+                difficulty=form.difficulty.data,
+                description=form.description.data,
+                author=current_user,
+                track=track
+            )
+        
             db.session.add(new_review)
             db.session.commit()
+
             flash('Review was added successfully.')
         else:
             flash('You have already reviewed this track')
@@ -124,7 +122,7 @@ def track_detail(track_id):
 def location_detail(location_id):
     location = Location.query.get(location_id)
 
-    return render_template('track_detail.html', location=location)
+    return render_template('location_detail.html', location=location)
 
 
 @main.route('/profile/<username>', methods=['GET', 'POST'])
@@ -134,6 +132,7 @@ def profile(username):
 
     # if form was submitted and contained no errors
     if form.validate_on_submit():
+        print("test")
         user.riding_experience = form.riding_experience.data
         user.bike = form.bike.data
 
@@ -142,7 +141,7 @@ def profile(username):
         flash('Profile was updated successfully.')
         return redirect(url_for('main.profile', username=username))
 
-    return render_template('profile.html', user=user)
+    return render_template('profile.html', user=user, form=form)
 
 
 # @main.route('/review/<track_id>', methods=['POST'])

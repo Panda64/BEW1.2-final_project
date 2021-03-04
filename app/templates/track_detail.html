@@ -17,7 +17,7 @@
 </p>
 
 <p>
-    <strong>Added By</strong>: {{ track.author.username }}
+    <strong>Added By</strong>: <a href="/profile/{{ track.author.username }}">{{ track.author.username }}</a>
 </p>
 
 
@@ -26,7 +26,7 @@
 {% for review in track.reviews %}
     <li>
         <p>
-            <strong><a href="/profile/{{ review.author.id }}">{{ review.author.name }}</a></strong> - {{ review.title }}
+            <strong><a href="/profile/{{ review.author.username }}">{{ review.author.username }}</a></strong> - {{ review.title }}
         </p>
 
         <p>
@@ -90,7 +90,7 @@
         </fieldset>
     </form>
 {% else %}
-    <p>Sign in to add a review!</p>
+    <p>Log in to add a review!</p>
 {% endif %}
 
 

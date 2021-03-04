@@ -17,7 +17,7 @@ Welcome to {{ user.username }}'s profile.
 
 
 {% if current_user.username == user.username %}
-    <form method="POST" action="{{ url_for('main.profile', user_id=user.id) }}">
+    <form method="POST" action="{{ url_for('main.profile', username=user.username) }}">
         {{ form.csrf_token }}
         <fieldset>
             <legend>Update your profile</legend>

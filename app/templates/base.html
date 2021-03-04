@@ -12,6 +12,7 @@
                 <a href="/">Home</a>
                 <div>
                     {% if current_user.is_authenticated %}
+                    <a href="/profile/{{ current_user.username }}">My Profile</a>
                     <a href="/create_track">Add a Track</a>
                     <a href="/create_location">Add a Location</a>
                     <a href="/logout">Log Out</a>

@@ -4,7 +4,7 @@
 
 <h1>{{ location.name }}</h1>
 
-<img src="{{ location.image }}" alt="{{ location.name }}">
+<img src="{{ location.image_url }}" alt="{{ location.name }}" style="max-width: 50%;">
 
 <p>
     <strong>Address</strong>: {{ location.address }}
@@ -15,14 +15,14 @@
 </p>
 
 <p>
-    <strong>Added By</strong>: {{ location.author.username }}
+    <strong>Added By</strong>: <a href="/profile/{{ location.author.username }}">{{ location.author.username }}</a>
 </p>
 
 <h3>Tracks at this location</h3>
 <ul>
 {% for track in location.tracks %}
     <li>
-        <img src="{{ track.image }}" alt="{{ track.name }}">
+        <img src="{{ track.image_url }}" alt="{{ track.name }}" style="max-width: 25%;">
         <a href="/track/{{ track.id }}">{{ track.name }}</a>
     </li>
 {% endfor %}

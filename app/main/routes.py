@@ -66,24 +66,6 @@ def create_location():
     return render_template('create_location.html', form=form)
 
 
-# @main.route('/create_genre', methods=['GET', 'POST'])
-# @login_required
-# def create_genre():
-#     form = GenreForm()
-#     if form.validate_on_submit():
-#         new_genre = Genre(
-#             name=form.name.data
-#         )
-#         db.session.add(new_genre)
-#         db.session.commit()
-
-#         flash('New genre created successfully.')
-#         return redirect(url_for('main.homepage'))
-    
-#     # if form was not valid, or was not submitted yet
-#     return render_template('create_genre.html', form=form)
-
-
 @main.route('/track/<track_id>', methods=['GET', 'POST'])
 def track_detail(track_id):
     already_reviewed = False
@@ -142,33 +124,3 @@ def profile(username):
         return redirect(url_for('main.profile', username=username))
 
     return render_template('profile.html', user=user, form=form)
-
-
-# @main.route('/review/<track_id>', methods=['POST'])
-# @login_required
-# def favorite_book(track_id):
-#     already_reviewed = False
-#     track = Track.query.get(track_id)
-#     for review in current_user.reviews:
-#         if track in review.track:
-#             already_reviewed = True
-    
-#     if already_reviewed == True:
-#         flash('You have already reviewed this track')
-#     else:
-#         pass
-#     return redirect(url_for('main.book_detail', book_id=book_id))
-
-
-# @main.route('/unfavorite/<book_id>', methods=['POST'])
-# @login_required
-# def unfavorite_book(book_id):
-#     book = Book.query.get(book_id)
-#     if book not in current_user.favorite_books:
-#         flash('Book not in favorites.')
-#     else:
-#         current_user.favorite_books.remove(book)
-#         db.session.add(current_user)
-#         db.session.commit()
-#         flash('Book removed from favorites.')
-#     return redirect(url_for('main.book_detail', book_id=book_id))
